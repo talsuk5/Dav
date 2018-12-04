@@ -1,4 +1,6 @@
 var fs = require('fs');
+var redis = require('redis');
+var redisClient = redis.createClient();
 
 var Vehicles = exports.Vehicles = {}
 
@@ -24,9 +26,10 @@ exports.init = function(path)
                 bearing : null,
                 trip_dist : 0
             };
-    });
 
-    vehicles.initDistances();
+            initVehicle(Vehicles[element.vehicle_id]);
+            redisClient.set(element.vehicle_id, Vehicles[element.vehicle_id], redis.print);
+    });
 }
 
 function Deg2Rad( deg ) {
@@ -100,21 +103,19 @@ function* entries(obj) {
     }
  }
 
-exports.initDistances = function ()
+function initVehicle(vehicle)
 {     
-    for (let [key, value] of entries(Vehicles)) {
-        value.velocity = getDistance(
-        value.pickup_lat,
-        value.dropoff_lat,
-        value.pickup_long,
-        value.dropoff_long) / value.time_to_dropoff;
-    
-        value.bearing = getBearing(   
-        value.pickup_lat,
-        value.dropoff_lat,
-        value.pickup_long,
-        value.dropoff_long);
-     }  
+        vehicle.velocity = getDistance(
+        vehicle.pickup_lat,
+        vehicle.dropoff_lat,
+        vehicle.pickup_long,
+        vehicle.dropoff_long) / vehicle.time_to_dropoff;
+
+        vehicle.bearing = getBearing(   
+        vehicle.pickup_lat,
+        vehicle.dropoff_lat,
+        vehicle.pickup_long,
+        vehicle.dropoff_long);
 }
 
 exports.updateLocation = function ()
