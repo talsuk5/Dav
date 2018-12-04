@@ -1,19 +1,32 @@
-var Vehicles = exports.Vehicles =
+var fs = require('fs');
+
+var Vehicles = exports.Vehicles = {}
+
+exports.init = function(path)
 {
-    '0x11' : { 
-        vehicle_id : '0x11',
-        status : 'trvelling',
-        time_to_dropoff: 60.5,
-        pickup_lat : 32.05060870,
-        pickup_long : 34.76701480,
-        dropoff_lat : 32.08745000,
-        dropoff_long : 34.78923800,
-        current_lat : null,
-        current_long : null,
-        velocity : null,
-        bearing : null,
-        trip_dist : 0
-    }
+    var fs = require('fs');
+
+    var data = fs.readFileSync(path, 'utf8');
+    
+    var arr = JSON.parse(data);
+    arr.forEach(element => {
+        Vehicles[element.vehicle_id] =  
+            { 
+                status : 'trvelling',
+                time_to_dropoff: element.time_to_dropoff,
+                pickup_lat : element.pickup_lat,
+                pickup_long : element.pickup_long,
+                dropoff_lat : element.dropoff_lat,
+                dropoff_long : element.dropoff_long,
+                current_lat : null,
+                current_long : null,
+                velocity : null,
+                bearing : null,
+                trip_dist : 0
+            };
+    });
+
+    vehicles.initDistances();
 }
 
 function Deg2Rad( deg ) {

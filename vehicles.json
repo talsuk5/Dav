@@ -1,0 +1,18 @@
+[
+    {
+        "vehicle_id" : "0x11",
+        "time_to_dropoff": 60.5,
+        "pickup_lat" : 32.05060870,
+        "pickup_long" : 34.76701480,
+        "dropoff_lat" : 32.08745000,
+        "dropoff_long" : 34.78923800
+    },
+    {
+        "vehicle_id" : "0x12",
+        "time_to_dropoff": 60.5,
+        "pickup_lat" : 32.05060870,
+        "pickup_long" : 34.76701480,
+        "dropoff_lat" : 32.08745000,
+        "dropoff_long" : 34.78923800
+    }
+]

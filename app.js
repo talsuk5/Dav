@@ -42,7 +42,7 @@ app.use(function(err, req, res, next) {
 
 module.exports = app;
 
-vehicles.initDistances();
+vehicles.init('vehicles.json');
 
 var cronJob = cron.schedule("* * * * * *", function(){
   
